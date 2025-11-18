@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CJU-EDELWEIS - 교수 대시보드</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 상단 헤더 -->
+    <header class="top-header">
+        <div class="container">
+            <div class="logo-section">
+                <img src="img/logo_wave.png" alt="청주대학교">
+            </div>
+            <nav class="top-nav">
+                <a href="#">최미나님 방문을 환영합니다</a>
+                <span class="divider">|</span>
+                <a href="#">MY PAGE</a>
+                <span class="divider">|</span>
+                <a href="#">로그아웃</a>
+                <span class="divider">|</span>
+                <a href="#">사용자 가이드</a>
+                <span class="divider">|</span>
+                <a href="#">Language</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 메인 네비게이션 -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="logo">
+                <img src="img/logo_edel.png" alt="EDELWEIS">
+            </div>
+            <ul class="menu">
+                <li><a href="#">소개</a></li>
+                <li><a href="#">MY PAGE</a></li>
+                <li><a href="#">COUNSEL/CAIR</a></li>
+                <li><a href="#">CJ MOOC</a></li>
+                <li><a href="#">OER</a></li>
+                <li><a href="#">OCW</a></li>
+                <li><a href="#">Q&A</a></li>
+                <li><a href="#">대학일자리플러스센터</a></li>
+                <li><a href="#">Meta-Life,CJU</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero 섹션 (배경 이미지 + 4개 박스) -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-container">
+            <div class="hero-grid">
+                <!-- 1. 교수 프로필 -->
+                <div class="profile-box">
+                    <div class="profile-bg">
+                        <div class="profile-dept">교직과</div>
+                        <div class="profile-photo">
+                            <img src="img/FileController.jpeg" alt="교수 프로필">
+                        </div>
+                        <div class="profile-name">최미나 <span>교수</span></div>
+                    </div>
+                </div>
+
+                <!-- 2. 상담·지도 관리현황 -->
+                <div class="counsel-box">
+                    <div class="box-header blue">
+                        <h3>상담 · 지도 관리현황</h3>
+                        <button class="plus-btn">+</button>
+                    </div>
+                    <div class="counsel-tabs">
+                        <button class="ctab active">전체</button>
+                        <button class="ctab">1학년</button>
+                        <button class="ctab">2학년</button>
+                        <button class="ctab">3학년</button>
+                        <button class="ctab">4학년</button>
+                    </div>
+                    <div class="counsel-items">
+                        <div class="counsel-item">
+                            <span class="label">상담 미실시자</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">상담완료</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">방문예약 상담</span>
+                            <span class="value red">0</span>
+                        </div>
+                        <div class="counsel-item">
+                            <span class="label">온라인 답변 요청</span>
+                            <span class="value red">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 달력 -->
+                <div class="calendar-box">
+                    <div class="calendar-controls">
+                        <button class="cal-nav" id="prevMonth">‹</button>
+                        <h3 class="cal-month" id="currentMonth">2025. 11</h3>
+                        <button class="cal-nav" id="nextMonth">›</button>
+                        <button class="cal-menu">☰</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="cal-header">
+                            <div class="cal-day sun">SUN</div>
+                            <div class="cal-day">MON</div>
+                            <div class="cal-day">TUE</div>
+                            <div class="cal-day">WED</div>
+                            <div class="cal-day">THU</div>
+                            <div class="cal-day">FRI</div>
+                            <div class="cal-day sat">SAT</div>
+                        </div>
+                        <div class="cal-body" id="calendarDays"></div>
+                    </div>
+                </div>
+
+                <!-- 4. 공지사항 -->
+                <div class="notice-box">
+                    <div class="box-header blue">
+                        <h3>공지사항</h3>
+                        <button class="plus-btn">+</button>
+                    </div>
+                    <div class="notice-items">
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2 02분반(조기취업자) 사이버…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.17</span>
+                                <span class="new-badge">N</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2 사이버강의 기말고사 시험…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.17</span>
+                                <span class="new-badge">N</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025-2학기 학과 체험 프로그램…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.13</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">2025학년도 전공탐색 설명회 안내</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.10</span>
+                            </div>
+                        </div>
+                        <div class="notice-line">
+                            <div class="notice-left">
+                                <span class="notice-text">[정상복구] 실시간 비대면 학습(w…</span>
+                            </div>
+                            <div class="notice-right">
+                                <span class="notice-date">11.06</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 하단 컨텐츠 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 교수역량진단 & 강의스타일 -->
+            <div class="dual-cards">
+                <div class="feature-card red-card">
+                    <div class="card-left">
+                        <h3>교수역량진단</h3>
+                        <div class="card-icon">📋</div>
+                    </div>
+                    <div class="card-body">
+                        <p>2025년 교수역량진단에 참여해주세요</p>
+                    </div>
+                    <button class="card-action">진단하기 →</button>
+                </div>
+
+                <div class="feature-card blue-card">
+                    <div class="card-left">
+                        <h3>강의스타일</h3>
+                        <div class="card-icon">💡</div>
+                    </div>
+                    <div class="card-body">
+                        <p>최미나 교수님의 강의스타일은 <strong>'전문가(Expert)'</strong> 입니다.</p>
+                    </div>
+                    <button class="card-action">진단하기 →</button>
+                </div>
+            </div>
+
+            <!-- 교수님 알림 -->
+            <section class="prof-notice-section">
+                <div class="section-head">
+                    <h2>교수님 알림</h2>
+                    <a href="#" class="more">공지사항 더보기 +</a>
+                </div>
+                <div class="notice-list-area">
+                    <div class="notice-full-row">
+                        <span class="row-num">1.</span>
+                        <span class="row-icon">📎</span>
+                        <span class="row-text">2025-2 티칭포트폴리오(신청기간 11/13~23, 본문 링크에서 신청 바랍니다)</span>
+                        <span class="row-date">11.13</span>
+                    </div>
+                    <div class="notice-full-row">
+                        <span class="row-num">2.</span>
+                        <span class="row-text">2025학년도 CJU 교원의 AI·디지털 역량 진단 참여 안내(진단참여 기간 11/16(일)까지)</span>
+                        <span class="row-date">11.04</span>
+                    </div>
+                    <div class="notice-full-row">
+                        <span class="row-num">3.</span>
+                        <span class="row-text">[실습특강] 수업과 연구의 생산성을 높여주는 필수 AI툴 활용법_오늘부터 신청가능</span>
+                        <span class="row-date">10.28</span>
+                    </div>
+                    <div class="notice-full-row">
+                        <span class="row-num">4.</span>
+                        <span class="row-text">[온라인특강] 배움과 성장을 촉진하는 학습자와의 상호작용 전략</span>
+                        <span class="row-date">10.22</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 교과·과정 -->
+            <section class="course-section">
+                <div class="course-main-title">
+                    <h2 class="main-title-text">교과<span class="blue-text">과정</span></h2>
+                </div>
+                <div class="course-title-bar">
+                    <div class="section-title">
+                        <span class="checkbox-icon">☐</span> 강의 <span class="blue-text">교과</span>
+                    </div>
+                    <select class="semester-select">
+                        <option>2025년-2학기</option>
+                    </select>
+                </div>
+                <div class="section-toolbar">
+                    <div class="toolbar-right">
+                        <span class="filter-label">구분</span>
+                        <select class="filter-select">
+                            <option>전체</option>
+                        </select>
+                        <span class="filter-label">학년</span>
+                        <select class="filter-select">
+                            <option>전체</option>
+                        </select>
+                    </div>
+                </div>
+                <table class="course-table">
+                    <thead>
+                        <tr>
+                            <th>교과목 명</th>
+                            <th>분반</th>
+                            <th>이수<br>구분</th>
+                            <th>학점</th>
+                            <th>학수번호</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>교육방법및교육공학</td>
+                            <td>01</td>
+                            <td>교직</td>
+                            <td>2.0</td>
+                            <td>0003860</td>
+                            <td><button class="detail-btn">▲</button></td>
+                        </tr>
+                        <tr>
+                            <td>교육방법및교육공학</td>
+                            <td>02</td>
+                            <td>교직</td>
+                            <td>2.0</td>
+                            <td>0003860</td>
+                            <td><button class="detail-btn">▲</button></td>
+                        </tr>
+                        <tr>
+                            <td>스마트학습환경과에듀테크</td>
+                            <td>01</td>
+                            <td>교선</td>
+                            <td>2.0</td>
+                            <td>0012854</td>
+                            <td><button class="detail-btn">▲</button></td>
+                        </tr>
+                        <tr>
+                            <td>스마트학습환경과에듀테크</td>
+                            <td>02</td>
+                            <td>교선</td>
+                            <td>2.0</td>
+                            <td>0012854</td>
+                            <td><button class="detail-btn">▲</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 비교과 프로그램 현황 -->
+            <section class="program-section">
+                <div class="course-main-title">
+                    <h2 class="main-title-text">비교과 <span class="blue-text">프로그램 현황</span></h2>
+                </div>
+                <div class="section-toolbar">
+                    <div class="toolbar-left">
+                        <button class="tab-btn active">비교과</button>
+                        <button class="tab-btn">온라인 비교과</button>
+                        <button class="tab-btn">법정교육</button>
+                    </div>
+                </div>
+                <table class="program-table">
+                    <thead>
+                        <tr>
+                            <th>프로그램 명</th>
+                            <th>진행기간</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2" class="empty-message">등록된 비교과 프로그램이 없습니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 교수 지원 -->
+            <section class="support-section">
+                <div class="course-main-title">
+                    <h2 class="main-title-text">교수 <span class="blue-text">지원</span></h2>
+                </div>
+                <div class="course-title-bar">
+                    <div class="section-title">
+                        <span class="checkbox-icon">☐</span> 교수 대상 <span class="blue-text">전체 프로그램</span>
+                    </div>
+                </div>
+                <div class="section-toolbar">
+                    <div class="toolbar-left">
+                        <button class="tab-btn active">전체</button>
+                        <button class="tab-btn">교원 교육</button>
+                        <button class="tab-btn">교수학습개발 및 적용</button>
+                        <button class="tab-btn">교수모임지원</button>
+                        <button class="tab-btn">기타 교수학습지원</button>
+                        <button class="tab-btn">온라인 교수법</button>
+                        <button class="tab-btn">법정교육</button>
+                    </div>
+                </div>
+                <table class="support-table">
+                    <thead>
+                        <tr>
+                            <th>프로그램</th>
+                            <th>일시</th>
+                            <th>정원</th>
+                            <th>신청하기</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>[수업컨설팅] 수업컨설팅</td>
+                            <td class="date-link">09.01 ~ 11.30</td>
+                            <td>21/30</td>
+                            <td><button class="apply-btn">신청하기</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <!-- TOP 버튼 -->
+    <button class="top-button" id="topBtn">
+        <div>▲</div>
+        <div>TOP</div>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

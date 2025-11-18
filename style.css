@@ -1,0 +1,978 @@
+/* 전역 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 상단 헤더 */
+.top-header {
+    background-color: #28426F;
+    color: white;
+    padding: 16px 0;
+    font-size: 12px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+}
+
+.top-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 560px;
+    margin-left: -20px;
+}
+
+.logo-section img {
+    height: 40px;
+    width: auto;
+}
+
+.top-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.top-nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.top-nav .divider {
+    color: rgba(255,255,255,0.6);
+}
+
+/* 메인 네비게이션 */
+.main-nav {
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.main-nav .container {
+    display: flex;
+    align-items: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.main-nav .logo {
+    margin-right: 130px;
+}
+
+.main-nav .logo img {
+    height: 34px;
+    width: auto;
+}
+
+.main-nav .menu {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.main-nav .menu a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Hero 섹션 */
+.hero-section {
+    background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1600&h=400&fit=crop');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    min-height: 302px;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 0;
+    padding-top: 32px;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(255,255,255,0.15));
+}
+
+.hero-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 276px 292px 289px 257px;
+    gap: 0;
+    z-index: 1;
+}
+
+/* 1. 교수 프로필 */
+.profile-box {
+    background: transparent;
+    height: 270px;
+    margin-right: 20px;
+}
+
+.profile-bg {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    border-radius: 0;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: none;
+    height: 100%;
+}
+
+.profile-dept {
+    background-color: rgba(255,255,255,0.15);
+    color: white;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.profile-photo {
+    padding: 20px 20px 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-photo img {
+    width: 108px;
+    height: 144px;
+    object-fit: cover;
+    border-radius: 0;
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+.profile-name {
+    color: #f9d748;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 15px 20px;
+}
+
+.profile-name span {
+    font-size: 14px;
+    font-weight: normal;
+    margin-left: 3px;
+    color: white;
+}
+
+/* 2. 상담·지도 관리현황 */
+.counsel-box {
+    background: white;
+    border-radius: 0;
+    border-right: 1px solid #e0e0e0;
+    overflow: hidden;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    height: 270px;
+}
+
+.box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+}
+
+.box-header.blue {
+    background-color: #5da3e8;
+    color: white;
+}
+
+.box-header h3 {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.plus-btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.counsel-tabs {
+    display: flex;
+    padding: 10px 12px;
+    gap: 5px;
+    background-color: white;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.ctab {
+    flex: 1;
+    padding: 7px 6px;
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 0;
+    font-size: 11px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #333;
+}
+
+.ctab.active {
+    background-color: #5da3e8;
+    color: white;
+    font-weight: bold;
+}
+
+.counsel-items {
+    padding: 12px 15px 15px;
+    flex: 1;
+}
+
+.counsel-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background-color: white;
+    border-radius: 0;
+    border: 1px solid #e0e0e0;
+}
+
+.counsel-item:last-child {
+    margin-bottom: 0;
+}
+
+.counsel-item .label {
+    font-size: 12px;
+    color: #333;
+    font-weight: 500;
+}
+
+.counsel-item .value {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.counsel-item .value.red {
+    background-color: #e74c3c;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+/* 3. 달력 */
+.calendar-box {
+    background: white;
+    border-radius: 0;
+    border-right: 1px solid #e0e0e0;
+    padding: 12px;
+    box-shadow: none;
+    height: 270px;
+    overflow: hidden;
+}
+
+.calendar-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.cal-month {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.cal-nav {
+    background: white;
+    border: 1px solid #ddd;
+    width: 26px;
+    height: 26px;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.cal-nav:first-child {
+    margin-right: auto;
+}
+
+.cal-nav:nth-child(3) {
+    margin-left: auto;
+}
+
+.cal-menu {
+    background: white;
+    border: 1px solid #ddd;
+    width: 26px;
+    height: 26px;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.calendar-grid {
+    width: 100%;
+}
+
+.cal-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 6px;
+}
+
+.cal-day {
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+    color: #666;
+    padding: 4px 0;
+}
+
+.cal-day.sun {
+    color: #e74c3c;
+}
+
+.cal-day.sat {
+    color: #3498db;
+}
+
+.cal-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.cal-date {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    border-radius: 0;
+    cursor: pointer;
+    position: relative;
+    background-color: white;
+    border: 1px solid #f0f0f0;
+}
+
+.cal-date:hover:not(.empty) {
+    background-color: #e9ecef;
+}
+
+.cal-date.sun {
+    color: #e74c3c;
+}
+
+.cal-date.sat {
+    color: #3498db;
+}
+
+.cal-date.today {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+.cal-date.green {
+    background-color: #5cb85c;
+    color: white;
+    font-weight: bold;
+}
+
+.cal-date.empty {
+    cursor: default;
+    background-color: transparent;
+    border: none;
+}
+
+.date-badge {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 7px;
+    padding: 1px 3px;
+    border-radius: 8px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.date-badge.blue {
+    background-color: #3498db;
+}
+
+/* 4. 공지사항 */
+.notice-box {
+    background: white;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    height: 270px;
+}
+
+.notice-items {
+    padding: 12px 15px 15px;
+    flex: 1;
+}
+
+.notice-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.notice-line:last-child {
+    border-bottom: none;
+}
+
+.notice-left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+    min-width: 0;
+}
+
+.num-badge {
+    background-color: #3498db;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 10px;
+    font-size: 9px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.num-badge.blue {
+    background-color: #3498db;
+}
+
+.notice-text {
+    font-size: 11px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.notice-right {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+    margin-left: auto;
+    width: 60px;
+    position: relative;
+}
+
+.notice-date {
+    font-size: 10px;
+    color: #e74c3c;
+    position: absolute;
+    right: 20px;
+}
+
+.new-badge {
+    background-color: #e74c3c;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 10px;
+    font-size: 8px;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    width: 14px;
+    position: absolute;
+    right: 0;
+}
+
+/* 메인 컨텐츠 영역 */
+.main-content {
+    padding: 40px 0;
+    background-color: #f5f5f5;
+}
+
+/* 듀얼 카드 */
+.dual-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.feature-card {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    border-radius: 0;
+    color: white;
+    box-shadow: none;
+    width: 1116px;
+    height: 55px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.red-card {
+    background: #E87171;
+}
+
+.blue-card {
+    background: #3682D7;
+}
+
+.card-left {
+    width: 210px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: transparent;
+}
+
+.card-icon {
+    font-size: 45px;
+    flex-shrink: 0;
+}
+
+.card-left h3 {
+    font-size: 17px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.card-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    background: white;
+}
+
+.card-body p {
+    font-size: 18px;
+    opacity: 1;
+    line-height: 1.3;
+    margin: 0;
+    color: #333;
+}
+
+.card-body p strong {
+    color: #3682D7;
+}
+
+.card-action {
+    background: transparent;
+    color: white;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* 교수님 알림 */
+.prof-notice-section {
+    background: white;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 30px;
+    box-shadow: none;
+    width: 1116px;
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 0 30px;
+    background-color: #1858A8;
+    color: white;
+    height: 53px;
+}
+
+.section-head h2 {
+    font-size: 25px;
+    color: white;
+    font-weight: normal;
+    text-align: left;
+}
+
+.more {
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.notice-list-area {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 18px 30px;
+    background: white;
+    width: 1114px;
+    height: 187px;
+    box-sizing: border-box;
+    overflow: hidden;
+    justify-content: space-evenly;
+}
+
+.notice-full-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    background-color: transparent;
+    border-radius: 0;
+    cursor: pointer;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.notice-full-row:last-child {
+    border-bottom: none;
+}
+
+.notice-full-row:hover {
+    background-color: transparent;
+}
+
+.row-num {
+    color: #333;
+    font-weight: 600;
+    width: 30px;
+    font-size: 13px;
+}
+
+.row-icon {
+    font-size: 13px;
+    margin-right: 5px;
+}
+
+.row-text {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 400;
+    color: #333;
+}
+
+.row-date {
+    color: #999;
+    font-size: 12px;
+    margin-left: 15px;
+}
+
+/* 교과·과정 */
+.course-section {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 30px;
+    width: 1116px;
+    border: none;
+}
+
+.course-main-title {
+    padding: 20px 0 15px;
+    border-bottom: none;
+}
+
+.main-title-text {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    margin: 0;
+}
+
+.course-title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    background: transparent;
+    border-bottom: none;
+}
+
+.section-title {
+    font-size: 14px;
+    color: #333;
+    font-weight: normal;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-icon {
+    color: #3682D7;
+    font-size: 16px;
+}
+
+.blue-text {
+    color: #3682D7;
+}
+
+.semester-select {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 13px;
+    background: white;
+}
+
+.section-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    background-color: transparent;
+    border-bottom: none;
+}
+
+.toolbar-left {
+    display: flex;
+    gap: 10px;
+}
+
+.course-section .section-toolbar {
+    justify-content: flex-end;
+}
+
+.tab-btn {
+    background: white;
+    color: #666;
+    border: 1px solid #ddd;
+    padding: 6px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 0;
+    font-weight: normal;
+}
+
+.tab-btn.active {
+    background: #3682D7;
+    color: white;
+    border-color: #3682D7;
+    font-weight: 600;
+}
+
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-label {
+    color: #666;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.filter-select {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 12px;
+    background: white;
+}
+
+.course-table,
+.program-table,
+.support-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #e0e0e0;
+}
+
+.course-table thead,
+.program-table thead,
+.support-table thead {
+    background-color: #f5f5f5;
+}
+
+.course-table th,
+.program-table th,
+.support-table th {
+    padding: 12px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.course-table td,
+.program-table td,
+.support-table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 13px;
+    color: #333;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: white;
+}
+
+.detail-btn {
+    background-color: #e87171;
+    color: white;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* 비교과 프로그램 현황 */
+.program-section {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 30px;
+    width: 1116px;
+    border: none;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+}
+
+/* 교수 지원 */
+.support-section {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 30px;
+    width: 1116px;
+    border: none;
+}
+
+.date-link {
+    color: #3682D7;
+    cursor: pointer;
+}
+
+.apply-btn {
+    background-color: #3682D7;
+    color: white;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* TOP 버튼 */
+.top-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #5da3e8;
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.top-button div:first-child {
+    font-size: 14px;
+}
+
+/* 반응형 */
+@media (max-width: 1400px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-nav .menu {
+        display: none;
+    }
+    
+    .dual-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .top-nav {
+        font-size: 10px;
+    }
+}
