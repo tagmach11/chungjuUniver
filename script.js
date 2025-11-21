@@ -1052,6 +1052,58 @@ function addEditFeatureToNewHistoryItem(item) {
     }
 }
 
+// QnA 페이지로 이동 (해당 질문 자동 열기)
+function goToQnAPage(questionId) {
+    window.location.href = `qa-professor.html#${questionId}`;
+}
+
+// QnA 아코디언 기능
+function toggleQnADetail(item) {
+    const detailContent = item.querySelector('.qa-question-detail-content');
+    const isExpanded = item.classList.contains('expanded');
+    
+    if (isExpanded) {
+        // 접기 - 현재 높이를 저장하고 0으로 설정
+        const currentHeight = detailContent.scrollHeight;
+        detailContent.style.maxHeight = currentHeight + 'px';
+        
+        // 리플로우 강제
+        detailContent.offsetHeight;
+        
+        // 접기 애니메이션
+        item.classList.remove('expanded');
+        detailContent.style.maxHeight = '0px';
+    } else {
+        // 다른 열린 항목들 먼저 접기
+        document.querySelectorAll('.qa-question-item.expanded').forEach(expandedItem => {
+            const expandedContent = expandedItem.querySelector('.qa-question-detail-content');
+            const currentHeight = expandedContent.scrollHeight;
+            expandedContent.style.maxHeight = currentHeight + 'px';
+            expandedContent.offsetHeight; // 리플로우
+            expandedItem.classList.remove('expanded');
+            expandedContent.style.maxHeight = '0px';
+        });
+        
+        // 펼치기 - 실제 높이 계산
+        item.classList.add('expanded');
+        
+        // 현재 높이를 0으로 설정하고 실제 높이로 전환
+        detailContent.style.maxHeight = '0px';
+        const actualHeight = detailContent.scrollHeight;
+        
+        // 리플로우 강제 후 애니메이션 시작
+        detailContent.offsetHeight;
+        detailContent.style.maxHeight = actualHeight + 'px';
+        
+        // transition 완료 후 max-height를 none으로 설정
+        setTimeout(() => {
+            if (item.classList.contains('expanded')) {
+                detailContent.style.maxHeight = 'none';
+            }
+        }, 300);
+    }
+}
+
 // 초기화
 document.addEventListener('DOMContentLoaded', () => {
     renderCalendar();

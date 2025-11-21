@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 음성 번역 - CJU-EDELWEIS</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #3B82F6;
+            --secondary: #60A5FA;
+            --accent: #60A5FA;
+            --bg-primary: #0D1117;
+            --bg-secondary: #161B22;
+            --text-primary: #FFFFFF;
+            --text-secondary: #E5E7EB;
+            --text-tertiary: #9CA3AF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .translation-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* 재생 바 */
+        .playback-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .play-pause-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .play-pause-btn:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+        }
+
+        .play-pause-btn.paused::before {
+            content: '▶';
+        }
+
+        .play-pause-btn.playing::before {
+            content: '⏸';
+        }
+
+        .seek-bar-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .seek-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .seek-bar-progress {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+        }
+
+        .time-display {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            min-width: 80px;
+            text-align: right;
+        }
+
+        /* 언어 패널 그리드 */
+        .language-panels {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 15px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .language-panel {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .language-panel.main {
+            border-left: 3px solid var(--primary);
+            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
+        }
+
+        .panel-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-primary);
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .panel-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .panel-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .panel-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .panel-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* 텍스트 블록 */
+        .text-block {
+            background: var(--bg-primary);
+            border-radius: 10px;
+            padding: 14px 16px;
+            animation: slideUp 0.4s ease-out;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-block.main {
+            background: rgba(59, 130, 246, 0.08);
+            border-left-color: var(--primary);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .text-block:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .text-block.main:hover {
+            background: rgba(59, 130, 246, 0.12);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .text-timestamp {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .text-content {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            word-wrap: break-word;
+        }
+
+        .text-block.main .text-content {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* 반응 버튼 */
+        .reaction-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .text-block:hover .reaction-buttons {
+            opacity: 1;
+        }
+
+        .reaction-btn {
+            padding: 4px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--bg-primary);
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .reaction-btn:hover {
+            border-color: var(--primary);
+            color: var(--secondary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .reaction-btn.active {
+            border-color: var(--primary);
+            color: var(--secondary);
+            background: rgba(59, 130, 246, 0.15);
+        }
+
+        /* 닫기 버튼 */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s;
+            z-index: 1000;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+            color: #FFFFFF;
+        }
+
+        /* 상태 표시 */
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.2);
+            }
+        }
+
+        .status-indicator.inactive {
+            background: var(--text-tertiary);
+            animation: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <button class="close-btn" onclick="window.close()">×</button>
+    
+    <div class="translation-container">
+        <!-- 재생 바 -->
+        <div class="playback-bar">
+            <button class="play-pause-btn paused" id="playPauseBtn"></button>
+            <div class="seek-bar-container">
+                <div class="seek-bar" id="seekBar">
+                    <div class="seek-bar-progress" id="seekBarProgress"></div>
+                </div>
+            </div>
+            <div class="time-display" id="timeDisplay">00:00 / 00:00</div>
+        </div>
+
+        <!-- 언어 패널 그리드 -->
+        <div class="language-panels">
+            <!-- 한국어 (메인) -->
+            <div class="language-panel main">
+                <div class="panel-header">
+                    <div class="panel-title">한국어</div>
+                    <div class="status-indicator" id="statusKo"></div>
+                </div>
+                <div class="panel-content" id="panelKo"></div>
+            </div>
+
+            <!-- 영어 -->
+            <div class="language-panel">
+                <div class="panel-header">
+                    <div class="panel-title">English</div>
+                    <div class="status-indicator" id="statusEn"></div>
+                </div>
+                <div class="panel-content" id="panelEn"></div>
+            </div>
+
+            <!-- 중국어 -->
+            <div class="language-panel">
+                <div class="panel-header">
+                    <div class="panel-title">中文</div>
+                    <div class="status-indicator" id="statusZh"></div>
+                </div>
+                <div class="panel-content" id="panelZh"></div>
+            </div>
+
+            <!-- 일본어 -->
+            <div class="language-panel">
+                <div class="panel-header">
+                    <div class="panel-title">日本語</div>
+                    <div class="status-indicator" id="statusJa"></div>
+                </div>
+                <div class="panel-content" id="panelJa"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 상태 관리
+        let isPlaying = false;
+        let currentTime = 0;
+        let totalTime = 0;
+        let textBlocks = [];
+        let playInterval = null;
+
+        // 예시 텍스트 데이터
+        const exampleTexts = [
+            {
+                time: 0,
+                ko: "안녕하세요, 오늘 강의를 시작하겠습니다.",
+                en: "Hello, let's start today's lecture.",
+                zh: "你好，让我们开始今天的讲座。",
+                ja: "こんにちは、今日の講義を始めます。"
+            },
+            {
+                time: 3,
+                ko: "오늘은 컴퓨터 공학의 기초에 대해 배워보겠습니다.",
+                en: "Today we will learn about the basics of computer science.",
+                zh: "今天我们将学习计算机科学的基础知识。",
+                ja: "今日はコンピュータサイエンスの基礎について学びます。"
+            },
+            {
+                time: 8,
+                ko: "먼저 알고리즘의 개념부터 설명드리겠습니다.",
+                en: "First, I'll explain the concept of algorithms.",
+                zh: "首先，我将解释算法的概念。",
+                ja: "まず、アルゴリズムの概念から説明します。"
+            },
+            {
+                time: 13,
+                ko: "알고리즘이란 문제를 해결하기 위한 단계별 절차입니다.",
+                en: "An algorithm is a step-by-step procedure to solve a problem.",
+                zh: "算法是解决问题的分步过程。",
+                ja: "アルゴリズムとは、問題を解決するための段階的な手順です。"
+            },
+            {
+                time: 18,
+                ko: "예를 들어, 정렬 알고리즘은 데이터를 순서대로 나열합니다.",
+                en: "For example, sorting algorithms arrange data in order.",
+                zh: "例如，排序算法按顺序排列数据。",
+                ja: "例えば、ソートアルゴリズムはデータを順番に並べます。"
+            },
+            {
+                time: 24,
+                ko: "시간 복잡도는 알고리즘의 실행 시간을 분석하는 방법입니다.",
+                en: "Time complexity is a way to analyze the execution time of an algorithm.",
+                zh: "时间复杂度是分析算法执行时间的方法。",
+                ja: "時間計算量は、アルゴリズムの実行時間を分析する方法です。"
+            },
+            {
+                time: 30,
+                ko: "빅오 표기법을 사용하여 시간 복잡도를 표현합니다.",
+                en: "We express time complexity using Big O notation.",
+                zh: "我们使用大O表示法来表示时间复杂度。",
+                ja: "ビッグO記法を使用して時間計算量を表現します。"
+            },
+            {
+                time: 35,
+                ko: "질문이 있으시면 언제든지 말씀해 주세요.",
+                en: "Please feel free to ask if you have any questions.",
+                zh: "如果您有任何问题，请随时提问。",
+                ja: "質問があれば、いつでもお知らせください。"
+            }
+        ];
+
+        // 초기화
+        function init() {
+            totalTime = exampleTexts[exampleTexts.length - 1].time + 10;
+            updateTimeDisplay();
+            setupEventListeners();
+        }
+
+        // 이벤트 리스너 설정
+        function setupEventListeners() {
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const seekBar = document.getElementById('seekBar');
+
+            playPauseBtn.addEventListener('click', togglePlayPause);
+            seekBar.addEventListener('click', handleSeek);
+        }
+
+        // 재생/일시정지 토글
+        function togglePlayPause() {
+            const btn = document.getElementById('playPauseBtn');
+            
+            if (!isPlaying) {
+                startPlayback();
+                btn.classList.remove('paused');
+                btn.classList.add('playing');
+            } else {
+                pausePlayback();
+                btn.classList.remove('playing');
+                btn.classList.add('paused');
+            }
+        }
+
+        // 재생 시작
+        function startPlayback() {
+            isPlaying = true;
+            
+            // 상태 표시기 활성화
+            document.querySelectorAll('.status-indicator').forEach(indicator => {
+                indicator.classList.remove('inactive');
+            });
+
+            // 재생 인터벌
+            playInterval = setInterval(() => {
+                currentTime += 0.1;
+                updateTimeDisplay();
+                updateSeekBar();
+                checkAndAddTexts();
+            }, 100);
+        }
+
+        // 일시정지
+        function pausePlayback() {
+            isPlaying = false;
+            
+            // 상태 표시기 비활성화
+            document.querySelectorAll('.status-indicator').forEach(indicator => {
+                indicator.classList.add('inactive');
+            });
+
+            if (playInterval) {
+                clearInterval(playInterval);
+                playInterval = null;
+            }
+        }
+
+        // 텍스트 추가 확인 및 실행
+        function checkAndAddTexts() {
+            exampleTexts.forEach((text, index) => {
+                if (Math.abs(currentTime - text.time) < 0.2 && !textBlocks.includes(index)) {
+                    addTextBlock(text);
+                    textBlocks.push(index);
+                }
+            });
+        }
+
+        // 텍스트 블록 추가
+        function addTextBlock(text) {
+            const languages = [
+                { id: 'Ko', lang: 'ko', content: text.ko, isMain: true },
+                { id: 'En', lang: 'en', content: text.en, isMain: false },
+                { id: 'Zh', lang: 'zh', content: text.zh, isMain: false },
+                { id: 'Ja', lang: 'ja', content: text.ja, isMain: false }
+            ];
+
+            languages.forEach(({ id, content, isMain }) => {
+                const panel = document.getElementById(`panel${id}`);
+                const block = createTextBlock(content, text.time, isMain);
+                panel.appendChild(block);
+                
+                // 자동 스크롤
+                setTimeout(() => {
+                    panel.scrollTop = panel.scrollHeight;
+                }, 50);
+            });
+        }
+
+        // 텍스트 블록 생성
+        function createTextBlock(content, timestamp, isMain) {
+            const block = document.createElement('div');
+            block.className = `text-block ${isMain ? 'main' : ''}`;
+            
+            const timeStr = formatTime(timestamp);
+            block.innerHTML = `
+                <div class="text-timestamp">${timeStr}</div>
+                <div class="text-content">${content}</div>
+                <div class="reaction-buttons">
+                    <button class="reaction-btn" onclick="handleReaction(this, '+1')">👍 +1</button>
+                    <button class="reaction-btn" onclick="handleReaction(this, 'like')">❤️ 좋아요</button>
+                    <button class="reaction-btn" onclick="handleReaction(this, 'bookmark')">🔖 북마크</button>
+                </div>
+            `;
+            
+            return block;
+        }
+
+        // 반응 버튼 처리
+        function handleReaction(btn, type) {
+            btn.classList.toggle('active');
+            // 여기에 실제 반응 저장 로직 추가 가능
+        }
+
+        // 시크 바 처리
+        function handleSeek(e) {
+            const seekBar = document.getElementById('seekBar');
+            const rect = seekBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            currentTime = percent * totalTime;
+            updateTimeDisplay();
+            updateSeekBar();
+            
+            // 해당 시간 이전의 텍스트만 표시
+            textBlocks = [];
+            document.querySelectorAll('.text-block').forEach(block => block.remove());
+            exampleTexts.forEach((text, index) => {
+                if (text.time <= currentTime) {
+                    addTextBlock(text);
+                    textBlocks.push(index);
+                }
+            });
+        }
+
+        // 시크 바 업데이트
+        function updateSeekBar() {
+            const progress = (currentTime / totalTime) * 100;
+            document.getElementById('seekBarProgress').style.width = progress + '%';
+        }
+
+        // 시간 표시 업데이트
+        function updateTimeDisplay() {
+            const current = formatTime(currentTime);
+            const total = formatTime(totalTime);
+            document.getElementById('timeDisplay').textContent = `${current} / ${total}`;
+        }
+
+        // 시간 포맷팅
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            // 자동 재생 시작
+            setTimeout(() => {
+                togglePlayPause();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
+

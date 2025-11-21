@@ -301,3 +301,5 @@ function detectLanguage(text) {
 - 번역 품질 점수화
 - 최적 번역 엔진 자동 선택
 
+
+

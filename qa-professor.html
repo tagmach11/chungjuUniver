@@ -201,7 +201,6 @@
         .filter-bar {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
             flex-wrap: wrap;
         }
 
@@ -216,6 +215,32 @@
         }
 
         .filter-btn.active {
+            background: #3682D7;
+            color: white;
+            border-color: #3682D7;
+        }
+
+        .sort-bar {
+            display: flex;
+            gap: 5px;
+        }
+
+        .sort-btn {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .sort-btn:hover {
+            background: #f8f9fa;
+        }
+
+        .sort-btn.active {
             background: #3682D7;
             color: white;
             border-color: #3682D7;
@@ -296,7 +321,11 @@
         }
 
         .question-item.expanded {
-            padding: 20px;
+            padding: 0;
+        }
+
+        .question-item.expanded .question-list-item {
+            display: none;
         }
 
         .question-list-item {
@@ -304,6 +333,18 @@
             align-items: center;
             padding: 15px 20px;
             gap: 15px;
+        }
+
+        .question-subject-card {
+            min-width: 120px;
+            padding: 6px 12px;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #666;
+            text-align: center;
         }
 
         .question-title {
@@ -334,10 +375,12 @@
             min-width: 100px;
         }
 
-        .question-count {
-            font-size: 14px;
-            color: #666;
-            min-width: 40px;
+        .question-list-item .question-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            min-width: 70px;
             text-align: center;
         }
 
@@ -354,15 +397,15 @@
             max-height: 0;
             overflow: hidden;
             opacity: 0;
-            transition: max-height 0.4s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out, padding 0.3s ease-out;
             padding: 0 20px;
         }
 
         .question-item.expanded .question-detail-content {
-            max-height: 2000px;
+            max-height: 5000px;
             opacity: 1;
             padding: 20px;
-            transition: max-height 0.5s ease-in, opacity 0.4s ease-in, padding 0.4s ease-in;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in, padding 0.3s ease-in;
         }
 
         .question-actions {
@@ -477,14 +520,15 @@
         }
 
         .status-pending {
-            background: #fff3cd;
-            color: #856404;
+            background: #f5f5f5;
+            color: #666;
+            border: 1px solid #e0e0e0;
         }
 
         .status-answered {
-            background: white;
-            color: #333;
-            border: 1px solid #dee2e6;
+            background: #f5f5f5;
+            color: #666;
+            border: 1px solid #e0e0e0;
         }
 
         .question-content {
@@ -532,31 +576,36 @@
         .answer-form {
             margin-top: 20px;
             padding: 20px;
+            background: #f8f9fa;
             border: 1px solid #e0e0e0;
-            border-radius: 6px;
+            border-radius: 8px;
         }
 
         .answer-form-label {
             font-weight: 600;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: block;
+            font-size: 15px;
         }
 
         .answer-textarea {
             width: 100%;
             min-height: 150px;
             padding: 15px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #ddd;
             border-radius: 6px;
             font-size: 14px;
             font-family: inherit;
             resize: vertical;
             margin-bottom: 15px;
+            background: white;
+            transition: border-color 0.3s;
         }
 
         .answer-textarea:focus {
             outline: none;
+            border-color: #3682D7;
         }
 
         .answer-preview {
@@ -587,8 +636,8 @@
         }
 
         .submit-answer-btn {
-            background: white;
-            color: #333;
+            background: #3682D7;
+            color: white;
             border: none;
             padding: 10px 25px;
             border-radius: 6px;
@@ -599,7 +648,9 @@
         }
 
         .submit-answer-btn:hover {
-            background: #f8f9fa;
+            background: #2a6bb5;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(54, 130, 215, 0.3);
         }
 
         .cancel-answer-btn {
@@ -620,31 +671,37 @@
         .existing-answer {
             margin-top: 20px;
             padding: 20px;
-            background: white;
-            border-radius: 6px;
+            background: #f8f9fa;
+            border-radius: 8px;
             border: 1px solid #e0e0e0;
         }
 
         .existing-answer-label {
             font-weight: 600;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-size: 15px;
         }
 
         .existing-answer-text {
             color: #333;
             font-size: 14px;
             line-height: 1.7;
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
         }
 
         .language-badge {
             display: inline-block;
             padding: 3px 10px;
-            background: #e8f5e9;
-            color: #2e7d32;
+            background: #f5f5f5;
+            color: #666;
             border-radius: 12px;
             font-size: 11px;
             margin-left: 8px;
+            border: 1px solid #e0e0e0;
         }
 
         .stats-bar {
@@ -716,8 +773,8 @@
 <body>
     <div class="qa-container">
         <div class="qa-header">
-            <h1>Q&A 답변하기</h1>
-            <p class="qa-subtitle">모든 질문이 한국어로 번역되어 표시됩니다. 한국어로 답변하시면 자동으로 학생의 언어로 번역되어 전달됩니다.</p>
+            <h1>Q&A </h1>
+            
         </div>
 
         <!-- 통계 -->
@@ -750,24 +807,31 @@
             <button class="new-register-btn">신규등록</button>
         </div>
 
-        <!-- 필터 -->
-        <div class="filter-bar">
-            <button class="filter-btn active" data-filter="all">전체</button>
-            <button class="filter-btn" data-filter="pending">답변 대기</button>
-            <button class="filter-btn" data-filter="answered">답변 완료</button>
+        <!-- 필터 및 정렬 -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">전체</button>
+                <button class="filter-btn" data-filter="pending">답변 대기</button>
+                <button class="filter-btn" data-filter="answered">답변 완료</button>
+            </div>
+            <div class="sort-bar">
+                <button class="sort-btn active" id="sortNewestBtn">최신순</button>
+                <button class="sort-btn" id="sortOldestBtn">과거순</button>
+            </div>
         </div>
 
         <!-- 질문 목록 -->
         <div class="questions-list">
             <!-- 질문 1 -->
-            <div class="question-item" data-status="pending" onclick="toggleQuestionDetail(this)">
+            <div class="question-item" id="q1" data-status="pending" data-date="2025-11-20" onclick="toggleQuestionDetail(this)">
                 <div class="question-list-item">
+                    <div class="question-subject-card">컴퓨터공학개론</div>
                     <div class="question-title">
                         다음 주 과제를 어떻게 해야 할지 모르겠어요.
                     </div>
                     <div class="question-author">Li Wei</div>
                     <div class="question-date">2025-11-20</div>
-                    <div class="question-count">0</div>
+                    <div class="question-status status-pending">답변 대기</div>
                 </div>
                 <div class="question-detail-content">
                     <div class="question-header">
@@ -793,8 +857,8 @@
                             <strong>원문 (중국어):</strong> 我不知道下周的作业应该怎么做。
                         </div>
                     </div>
-                    <div class="answer-form">
-                        <label class="answer-form-label">답변 작성 (한국어)</label>
+                    <div class="answer-form" onclick="event.stopPropagation();">
+                        <label class="answer-form-label">답변 작성</label>
                         <textarea class="answer-textarea" placeholder="한국어로 답변을 작성하세요. 자동으로 학생의 언어로 번역됩니다."></textarea>
                         <div class="answer-preview" id="preview1" style="display: none;">
                             <div class="answer-preview-label">학생 언어 번역 미리보기 (중국어):</div>
@@ -818,12 +882,13 @@
             </div>
 
             <!-- 질문 2 -->
-            <div class="question-item" data-status="answered" onclick="toggleQuestionDetail(this)">
+            <div class="question-item" id="q2" data-status="answered" data-date="2025-11-18" onclick="toggleQuestionDetail(this)">
                 <div class="question-list-item">
+                    <div class="question-subject-card">데이터구조</div>
                     <div class="question-title">스택과 큐의 차이점을 설명해주실 수 있나요?</div>
                     <div class="question-author">John Smith</div>
                     <div class="question-date">2025-11-18</div>
-                    <div class="question-count">0</div>
+                    <div class="question-status status-answered">답변 완료</div>
                 </div>
                 <div class="question-detail-content">
                     <div class="question-header">
@@ -869,12 +934,13 @@
             </div>
 
             <!-- 질문 3 -->
-            <div class="question-item" data-status="pending" onclick="toggleQuestionDetail(this)">
+            <div class="question-item" id="q3" data-status="pending" data-date="2025-11-19" onclick="toggleQuestionDetail(this)">
                 <div class="question-list-item">
+                    <div class="question-subject-card">알고리즘</div>
                     <div class="question-title">정렬 알고리즘의 시간 복잡도에 대해 질문이 있습니다.</div>
                     <div class="question-author">Nguyen Van A</div>
                     <div class="question-date">2025-11-19</div>
-                    <div class="question-count">0</div>
+                    <div class="question-status status-pending">답변 대기</div>
                 </div>
                 <div class="question-detail-content">
                     <div class="question-header">
@@ -900,8 +966,8 @@
                             <strong>원문 (베트남어):</strong> Tôi có câu hỏi về độ phức tạp thời gian của thuật toán sắp xếp.
                         </div>
                     </div>
-                    <div class="answer-form">
-                        <label class="answer-form-label">답변 작성 (한국어)</label>
+                    <div class="answer-form" onclick="event.stopPropagation();">
+                        <label class="answer-form-label">답변 작성 </label>
                         <textarea class="answer-textarea" placeholder="한국어로 답변을 작성하세요. 자동으로 학생의 언어로 번역됩니다."></textarea>
                         <div class="answer-preview" id="preview3" style="display: none;">
                             <div class="answer-preview-label">학생 언어 번역 미리보기 (베트남어):</div>
@@ -910,6 +976,57 @@
                         <div class="answer-actions">
                             <button class="submit-answer-btn" onclick="event.stopPropagation(); submitAnswer(this, 'vi')">답변 등록</button>
                             <button class="cancel-answer-btn" onclick="event.stopPropagation(); cancelAnswer(this)">취소</button>
+                        </div>
+                    </div>
+                    <div class="question-actions" onclick="event.stopPropagation();">
+                        <div class="question-actions-left">
+                            <button class="btn-delete" onclick="deleteQuestion(this)">삭제</button>
+                        </div>
+                        <div class="question-actions-right">
+                            <button class="btn-edit" onclick="editQuestion(this)">수정</button>
+                            <button class="btn-list" onclick="goToList()">목록</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 질문 4 -->
+            <div class="question-item" id="q4" data-status="answered" data-date="2025-11-17" onclick="toggleQuestionDetail(this)">
+                <div class="question-list-item">
+                    <div class="question-subject-card">웹프로그래밍</div>
+                    <div class="question-title">과제 제출 방법에 대해 질문이 있습니다.</div>
+                    <div class="question-author">Park Min-ji</div>
+                    <div class="question-date">2025-11-17</div>
+                    <div class="question-status status-answered">답변 완료</div>
+                </div>
+                <div class="question-detail-content">
+                    <div class="question-header">
+                        <div class="student-info">
+                            <div class="student-avatar">P</div>
+                            <div class="student-details">
+                                <h3>Park Min-ji <span class="language-badge">한국어</span></h3>
+                                <div class="student-meta">
+                                    <span>20210404</span>
+                                    <span>웹프로그래밍</span>
+                                    <span>2025.11.17 09:30</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="question-status status-answered">답변 완료</span>
+                    </div>
+                    <div class="question-content">
+                        <div class="question-translated">
+                            과제 제출 방법에 대해 질문이 있습니다.
+                        </div>
+                        <button class="view-original-btn" onclick="event.stopPropagation(); toggleOriginal(this)">원문 보기</button>
+                        <div class="question-original">
+                            <strong>원문 (한국어):</strong> 과제 제출 방법에 대해 질문이 있습니다.
+                        </div>
+                    </div>
+                    <div class="existing-answer">
+                        <div class="existing-answer-label">답변</div>
+                        <div class="existing-answer-text">
+                            과제는 LMS 시스템의 과제 게시판에 PDF 파일로 제출해주시면 됩니다. 제출 기한은 다음 주 월요일까지입니다.
                         </div>
                     </div>
                     <div class="question-actions" onclick="event.stopPropagation();">
@@ -995,11 +1112,79 @@
                 topBtn.style.display = 'none';
             }
         });
+
+        // URL 해시로 특정 질문 자동 열기
+        function openQuestionFromHash() {
+            const hash = window.location.hash;
+            if (hash) {
+                const questionId = hash.substring(1); // # 제거
+                const questionItem = document.getElementById(questionId);
+                if (questionItem) {
+                    // 약간의 지연 후 열기 (페이지 렌더링 완료 후)
+                    setTimeout(() => {
+                        toggleQuestionDetail(questionItem);
+                        // 해당 질문으로 스크롤
+                        setTimeout(() => {
+                            questionItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 400);
+                    }, 300);
+                }
+            }
+        }
+
+        // 페이지 로드 시 실행
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', openQuestionFromHash);
+        } else {
+            openQuestionFromHash();
+        }
     </script>
     <script>
         // 질문 상세 보기/숨기기
         function toggleQuestionDetail(item) {
-            item.classList.toggle('expanded');
+            const detailContent = item.querySelector('.question-detail-content');
+            const isExpanded = item.classList.contains('expanded');
+            
+            if (isExpanded) {
+                // 접기 - 현재 높이를 저장하고 0으로 설정
+                const currentHeight = detailContent.scrollHeight;
+                detailContent.style.maxHeight = currentHeight + 'px';
+                
+                // 리플로우 강제
+                detailContent.offsetHeight;
+                
+                // 접기 애니메이션
+                item.classList.remove('expanded');
+                detailContent.style.maxHeight = '0px';
+            } else {
+                // 다른 열린 항목들 먼저 접기
+                document.querySelectorAll('.question-item.expanded').forEach(expandedItem => {
+                    const expandedContent = expandedItem.querySelector('.question-detail-content');
+                    const currentHeight = expandedContent.scrollHeight;
+                    expandedContent.style.maxHeight = currentHeight + 'px';
+                    expandedContent.offsetHeight; // 리플로우
+                    expandedItem.classList.remove('expanded');
+                    expandedContent.style.maxHeight = '0px';
+                });
+                
+                // 펼치기 - 실제 높이 계산
+                item.classList.add('expanded');
+                
+                // 현재 높이를 0으로 설정하고 실제 높이로 전환
+                detailContent.style.maxHeight = '0px';
+                const actualHeight = detailContent.scrollHeight;
+                
+                // 리플로우 강제 후 애니메이션 시작
+                detailContent.offsetHeight;
+                detailContent.style.maxHeight = actualHeight + 'px';
+                
+                // transition 완료 후 max-height를 none으로 설정
+                setTimeout(() => {
+                    if (item.classList.contains('expanded')) {
+                        detailContent.style.maxHeight = 'none';
+                    }
+                }, 300);
+            }
         }
 
         // 원문 보기/숨기기
@@ -1130,6 +1315,50 @@
                 });
             });
         });
+
+        // 정렬 기능
+        function sortQuestions(order) {
+            const questionsList = document.querySelector('.questions-list');
+            const items = Array.from(questionsList.querySelectorAll('.question-item'));
+            
+            // 날짜 기준으로 정렬
+            items.sort((a, b) => {
+                const dateA = a.getAttribute('data-date') || '0000-00-00';
+                const dateB = b.getAttribute('data-date') || '0000-00-00';
+                
+                if (order === 'newest') {
+                    return dateB.localeCompare(dateA); // 최신순
+                } else {
+                    return dateA.localeCompare(dateB); // 과거순
+                }
+            });
+            
+            // 기존 항목 제거
+            items.forEach(item => item.remove());
+            
+            // 정렬된 순서로 다시 추가
+            items.forEach(item => questionsList.appendChild(item));
+        }
+
+        // 최신순 버튼
+        const sortNewestBtn = document.getElementById('sortNewestBtn');
+        if (sortNewestBtn) {
+            sortNewestBtn.addEventListener('click', () => {
+                sortNewestBtn.classList.add('active');
+                document.getElementById('sortOldestBtn').classList.remove('active');
+                sortQuestions('newest');
+            });
+        }
+
+        // 과거순 버튼
+        const sortOldestBtn = document.getElementById('sortOldestBtn');
+        if (sortOldestBtn) {
+            sortOldestBtn.addEventListener('click', () => {
+                sortOldestBtn.classList.add('active');
+                document.getElementById('sortNewestBtn').classList.remove('active');
+                sortQuestions('oldest');
+            });
+        }
 
         // 페이지 이동
         function goToPage(page) {

@@ -242,7 +242,7 @@
                         <span class="checkbox-icon">☐</span> 교수자 <span class="blue-text"></span>
                     </div>
                     <button class="polytalk-btn" id="openPolyTalkBtn">
-                        다국어 상담
+                        AI Translator
                     </button>
                 </div>
                 <table class="course-table">
@@ -285,6 +285,97 @@
                 </table>
             </section>
 
+            <!-- Q&A -->
+            <section class="qa-section">
+                <div class="course-main-title">
+                    <h2 class="main-title-text">Q&A <span class="blue-text">관리</span></h2>
+                </div>
+                <div class="course-title-bar">
+                    <div class="section-title">
+                        <span class="checkbox-icon">☐</span>게시물<span class="blue-text"></span>
+                    </div>
+                   
+                </div>
+
+                <!-- 최근 질문 목록 -->
+                <div class="qa-questions-list">
+                    <div class="qa-question-item" data-status="pending" data-question-id="q1" onclick="goToQnAPage('q1')">
+                        <div class="qa-question-list-item">
+                            <div class="qa-question-subject-card">컴퓨터공학개론</div>
+                            <div class="qa-question-title">다음 주 과제를 어떻게 해야 할지 모르겠어요.</div>
+                            <div class="qa-question-meta">
+                                <span class="qa-question-author">Li Wei</span>
+                                <span class="qa-question-date">2025-11-20</span>
+                            </div>
+                        </div>
+                        <div class="qa-question-detail-content">
+                            <div class="qa-question-header">
+                                <div class="qa-student-info">
+                                    <div class="qa-student-avatar">Li</div>
+                                    <div class="qa-student-details">
+                                        <h3>Li Wei <span class="qa-language-badge">중국어</span></h3>
+                                        <div class="qa-student-meta">
+                                            <span>20210101</span>
+                                            <span>컴퓨터공학개론</span>
+                                            <span>2025.11.20 14:30</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qa-question-content-box">
+                                <div class="qa-question-label">질문</div>
+                                <div class="qa-question-text">다음 주 과제를 어떻게 해야 할지 모르겠어요.</div>
+                            </div>
+                            <div class="qa-answer-form" onclick="event.stopPropagation();">
+                                <label class="qa-answer-form-label">답변 작성 (한국어)</label>
+                                <textarea class="qa-answer-textarea" placeholder="한국어로 답변을 작성하세요. 자동으로 학생의 언어로 번역됩니다."></textarea>
+                                <div class="qa-answer-actions">
+                                    <button class="qa-submit-answer-btn" onclick="event.stopPropagation();">답변 등록</button>
+                                    <button class="qa-cancel-answer-btn" onclick="event.stopPropagation();">취소</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qa-question-item" data-status="pending" data-question-id="q3" onclick="goToQnAPage('q3')">
+                        <div class="qa-question-list-item">
+                            <div class="qa-question-subject-card">알고리즘</div>
+                            <div class="qa-question-title">정렬 알고리즘의 시간 복잡도에 대해 질문이 있습니다.</div>
+                            <div class="qa-question-meta">
+                                <span class="qa-question-author">Nguyen Van A</span>
+                                <span class="qa-question-date">2025-11-18</span>
+                            </div>
+                        </div>
+                        <div class="qa-question-detail-content">
+                            <div class="qa-question-header">
+                                <div class="qa-student-info">
+                                    <div class="qa-student-avatar">N</div>
+                                    <div class="qa-student-details">
+                                        <h3>Nguyen Van A <span class="qa-language-badge">베트남어</span></h3>
+                                        <div class="qa-student-meta">
+                                            <span>20230303</span>
+                                            <span>알고리즘</span>
+                                            <span>2025.11.18 16:20</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="qa-question-content-box">
+                                <div class="qa-question-label">질문</div>
+                                <div class="qa-question-text">정렬 알고리즘의 시간 복잡도에 대해 질문이 있습니다.</div>
+                            </div>
+                            <div class="qa-answer-form" onclick="event.stopPropagation();">
+                                <label class="qa-answer-form-label">답변 작성 (한국어)</label>
+                                <textarea class="qa-answer-textarea" placeholder="한국어로 답변을 작성하세요. 자동으로 학생의 언어로 번역됩니다."></textarea>
+                                <div class="qa-answer-actions">
+                                    <button class="qa-submit-answer-btn" onclick="event.stopPropagation();">답변 등록</button>
+                                    <button class="qa-cancel-answer-btn" onclick="event.stopPropagation();">취소</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- 교과·과정 -->
             <section class="course-section">
                 <div class="course-main-title">
@@ -318,6 +409,7 @@
                             <th>이수<br>구분</th>
                             <th>학점</th>
                             <th>학수번호</th>
+                            <th>강의시작</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -328,6 +420,7 @@
                             <td>교직</td>
                             <td>2.0</td>
                             <td>0003860</td>
+                            <td><button class="lecture-start-btn" onclick="window.open('realtime-translation.html', '_blank')">강의시작</button></td>
                             <td><button class="detail-btn">▲</button></td>
                         </tr>
                         <tr>
@@ -336,6 +429,7 @@
                             <td>교직</td>
                             <td>2.0</td>
                             <td>0003860</td>
+                            <td><button class="lecture-start-btn" onclick="window.open('realtime-translation.html', '_blank')">강의시작</button></td>
                             <td><button class="detail-btn">▲</button></td>
                         </tr>
                         <tr>
@@ -344,6 +438,7 @@
                             <td>교선</td>
                             <td>2.0</td>
                             <td>0012854</td>
+                            <td><button class="lecture-start-btn" onclick="window.open('realtime-translation.html', '_blank')">강의시작</button></td>
                             <td><button class="detail-btn">▲</button></td>
                         </tr>
                         <tr>
@@ -352,6 +447,7 @@
                             <td>교선</td>
                             <td>2.0</td>
                             <td>0012854</td>
+                            <td><button class="lecture-start-btn" onclick="window.open('realtime-translation.html', '_blank')">강의시작</button></td>
                             <td><button class="detail-btn">▲</button></td>
                         </tr>
                     </tbody>
